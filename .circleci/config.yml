@@ -43,6 +43,9 @@ workflows:
           yarn: true
           requires:
             - build_and_deploy
+          record: true # record results on Cypress Dashboard
+          parallel: true # split all specs across machines
+          parallelism: 4 # use 4 CircleCI machines to finish quickly
           filters:
             branches:
               only:
