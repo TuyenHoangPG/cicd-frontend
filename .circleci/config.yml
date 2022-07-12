@@ -41,7 +41,7 @@ workflows:
                 - build
       - cypress/run:
           yarn: true
-          working_directory: frontend
+          no-workspace: true
           requires:
             - build_and_deploy
           record: true # record results on Cypress Dashboard
