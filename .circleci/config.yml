@@ -41,7 +41,7 @@ workflows:
                 - build
       - cypress/run:
           yarn: true
-          working_directory: ~/repo
+          working_directory: ~/project	
           requires:
             - build_and_deploy
           record: true # record results on Cypress Dashboard
