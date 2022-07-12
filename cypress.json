@@ -1,0 +1,18 @@
+{
+  "baseUrl": "https://test-circle-ci-99504.web.app/",
+  "chromeWebSecurity": false,
+  "defaultCommandTimeout": 10000,
+  "reporter": "mochawesome",
+  "reporterOptions": {
+    "reportDir": "cypress/reporters",
+    "overwrite": true,
+    "html": true,
+    "json": false,
+    "charts": false
+  },
+  "viewportWidth": 1920,
+  "viewportHeight": 1080,
+  "video": false,
+  "projectId": "bhrnsv",
+  "experimentalSessionAndOrigin": true
+}
