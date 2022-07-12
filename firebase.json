@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "test-circle-ci",
+    "public": "build",
     "ignore": [
       "firebase.json",
       "**/.*",
