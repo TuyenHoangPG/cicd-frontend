@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+    cypress: cypress-io/cypress@2.0.0
 jobs:
     build_and_deploy:
       docker:
@@ -29,7 +31,6 @@ jobs:
           - run:
                 name: Firebase Deploy
                 command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only hosting
-    cypress: cypress-io/cypress@9
 workflows:
   my-pipeline:
     jobs:
