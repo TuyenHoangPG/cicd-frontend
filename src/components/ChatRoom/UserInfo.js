@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Button, Avatar, Typography } from "antd";
 import styled from "styled-components";
-import { auth, db } from "../../firebase/config";
+import { auth } from "../../firebase/config";
 import { AuthContext } from "../../context/AuthProvider";
 
 const WrapperStyled = styled.div`
