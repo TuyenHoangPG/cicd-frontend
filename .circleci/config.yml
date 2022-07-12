@@ -29,6 +29,7 @@ jobs:
           - run:
                 name: Firebase Deploy
                 command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only hosting
+    cypress: cypress-io/cypress@9
 workflows:
   my-pipeline:
     jobs:
@@ -37,3 +38,12 @@ workflows:
             branches:
               only:
                 - build
+      - cypress/run:
+          yarn: true
+          requires:
+            - build_and_deploy
+          filters:
+            branches:
+              only:
+                - build
+
