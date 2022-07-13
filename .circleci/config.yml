@@ -2,9 +2,9 @@ version: 2.1
 orbs:
     cypress: cypress-io/cypress@2.0.0
 executors:
-    cypress9:
-      docker:
-        - image: 'cypress/base:12'
+  chrome80-ff72:
+    docker:
+      - image: 'cypress/browsers:node13.6.0-chrome80-ff72'
 jobs:
     build_and_deploy:
       docker:
@@ -44,7 +44,9 @@ workflows:
               only:
                 - build
       - cypress/run:
-          executor: cypress9
+          no-workspace: true	
+          executor: chrome80-ff72
+          browser: chrome
           requires:
             - build_and_deploy
           record: true # record results on Cypress Dashboard
