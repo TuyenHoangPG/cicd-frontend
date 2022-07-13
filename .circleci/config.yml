@@ -44,13 +44,11 @@ workflows:
               only:
                 - build
       - cypress/install:
-          build: 'npm run build'
-      - cypress/run:
-          no-workspace: true	
-          executor: chrome80-ff72
-          browser: chrome
           requires:
             - build_and_deploy
+      - cypress/run:
+          requires:
+            - cypress/install
           record: true # record results on Cypress Dashboard
           parallel: true # split all specs across machines
           parallelism: 1 # use 4 CircleCI machines to finish quickly
