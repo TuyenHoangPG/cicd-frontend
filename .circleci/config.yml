@@ -44,7 +44,6 @@ workflows:
               only:
                 - build
       - cypress/run:
-          working_directory: ~/project	
           executor: cypress9
           requires:
             - build_and_deploy
