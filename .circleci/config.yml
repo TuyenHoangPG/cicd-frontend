@@ -1,6 +1,10 @@
 version: 2.1
 orbs:
     cypress: cypress-io/cypress@2.0.0
+executors:
+    cypress9:
+      docker:
+        - image: 'cypress/base:9'
 jobs:
     build_and_deploy:
       docker:
@@ -40,8 +44,8 @@ workflows:
               only:
                 - build
       - cypress/run:
-          yarn: true
           working_directory: ~/project	
+          executor: cypress9
           requires:
             - build_and_deploy
           record: true # record results on Cypress Dashboard
