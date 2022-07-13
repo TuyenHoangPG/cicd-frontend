@@ -43,6 +43,8 @@ workflows:
             branches:
               only:
                 - build
+      - cypress/install:
+          build: 'npm run build'
       - cypress/run:
           no-workspace: true	
           executor: chrome80-ff72
