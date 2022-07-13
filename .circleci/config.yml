@@ -4,7 +4,7 @@ orbs:
 executors:
     cypress9:
       docker:
-        - image: 'cypress/base:9'
+        - image: 'cypress/base:12'
 jobs:
     build_and_deploy:
       docker:
