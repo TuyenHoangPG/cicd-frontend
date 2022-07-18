@@ -48,9 +48,9 @@ workflows:
           #   branches:
           #     only:
           #       - build
-      - cypress/install:
-          requires:
-            - build_and_deploy
+      - cypress/install
+          # requires:
+          #   - build_and_deploy
       - cypress/run:
           requires:
             - cypress/install
