@@ -42,9 +42,9 @@ jobs:
           # - run:
           #       name: Firebase Deploy
           #       command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only hosting
-            - run: 
-                  name: Check target_branch
-                  command: echo << pipeline.parameters.target_branch >>
+          - run: 
+                name: Check target_branch
+                command: echo << pipeline.parameters.target_branch >>
 workflows:
   run-automation-test:
     when:
