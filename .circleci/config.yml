@@ -9,6 +9,9 @@ parameters:
   pull_request:
     type: boolean
     default: false
+  target_branch:
+    type: string
+    default: 'build'
 jobs:
     build_and_deploy:
       docker:
@@ -41,7 +44,11 @@ jobs:
                 command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only hosting
 workflows:
   run-automation-test:
-    when: << pipeline.parameters.pull_request >>
+    when:
+      condition:
+        and:
+          - equal: [ build, << pipeline.parameters.target_branch >> ]
+          - equal: [ true, << pipeline.parameters.pull_request >>]
     jobs:
       # - build_and_deploy
           # filters:
