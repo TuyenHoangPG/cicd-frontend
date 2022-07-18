@@ -5,6 +5,13 @@ executors:
   chrome80-ff72:
     docker:
       - image: 'cypress/browsers:node13.6.0-chrome80-ff72'
+parameters:
+  pull_request:
+    type: boolean
+    default: false
+  target_branch:
+    type: string
+    default: 'build'
 jobs:
     build_and_deploy:
       docker:
@@ -36,16 +43,21 @@ jobs:
                 name: Firebase Deploy
                 command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only hosting
 workflows:
-  my-pipeline:
+  run-automation-test:
+    when:
+      condition:
+        and:
+          - equal: [ build, << pipeline.parameters.target_branch >> ]
+          - equal: [ true, << pipeline.parameters.pull_request >> ]
     jobs:
-      - build_and_deploy
+      # - build_and_deploy
           # filters:
           #   branches:
           #     only:
           #       - build
-      - cypress/install:
-          requires:
-            - build_and_deploy
+      - cypress/install
+          # requires:
+          #   - build_and_deploy
       - cypress/run:
           requires:
             - cypress/install
