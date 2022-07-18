@@ -38,11 +38,11 @@ jobs:
 workflows:
   my-pipeline:
     jobs:
-      - build_and_deploy:
-          filters:
-            branches:
-              only:
-                - build
+      - build_and_deploy
+          # filters:
+          #   branches:
+          #     only:
+          #       - build
       - cypress/install:
           requires:
             - build_and_deploy
