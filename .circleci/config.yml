@@ -41,7 +41,7 @@ jobs:
                 command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only hosting
 workflows:
   run-automation-test:
-    # when: << pipeline.parameters.pull_request >>
+    when: << pipeline.parameters.pull_request >>
     jobs:
       # - build_and_deploy
           # filters:
