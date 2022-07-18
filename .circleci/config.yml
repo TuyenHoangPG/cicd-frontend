@@ -11,7 +11,7 @@ parameters:
     default: false
   target_branch:
     type: string
-    default: 'build'
+    default: ''
 jobs:
     build_and_deploy:
       docker:
