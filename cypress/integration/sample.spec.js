@@ -4,6 +4,6 @@ context('Check cypress run successfully!', function() {
   })
 
   it('To verify open correct site', function() {
-    cy.get('h3').contains('Fun Chat 100').should('exist')
+    cy.get('h3').contains('Fun Chat - test').should('exist')
   });
 })
