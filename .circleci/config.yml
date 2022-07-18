@@ -5,6 +5,10 @@ executors:
   chrome80-ff72:
     docker:
       - image: 'cypress/browsers:node13.6.0-chrome80-ff72'
+parameters:
+  pull_request:
+    type: boolean
+    default: false
 jobs:
     build_and_deploy:
       docker:
@@ -36,9 +40,10 @@ jobs:
                 name: Firebase Deploy
                 command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only hosting
 workflows:
-  my-pipeline:
+  run-auotmation-test:
+    when: << pipeline.parameters.pull_request >>
     jobs:
-      - build_and_deploy
+      # - build_and_deploy
           # filters:
           #   branches:
           #     only:
