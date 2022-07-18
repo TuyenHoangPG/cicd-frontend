@@ -40,8 +40,8 @@ jobs:
                 name: Firebase Deploy
                 command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only hosting
 workflows:
-  run-auotmation-test:
-    when: << pipeline.parameters.pull_request >>
+  run-automation-test:
+    # when: << pipeline.parameters.pull_request >>
     jobs:
       # - build_and_deploy
           # filters:
@@ -52,6 +52,8 @@ workflows:
           requires:
             - build_and_deploy
       - cypress/run:
+          branches:
+            - build
           requires:
             - cypress/install
           record: true # record results on Cypress Dashboard
