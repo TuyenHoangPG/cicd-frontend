@@ -57,8 +57,8 @@ workflows:
           record: true # record results on Cypress Dashboard
           parallel: true # split all specs across machines
           parallelism: 1 # use 4 CircleCI machines to finish quickly
-          filters:
-            branches:
-              only:
-                - build
+          # filters:
+          #   branches:
+          #     only:
+          #       - build
 
