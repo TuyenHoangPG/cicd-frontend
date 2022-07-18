@@ -55,6 +55,10 @@ workflows:
           #   branches:
           #     only:
           #       - build
+      - check_parameter:
+        - run: 
+              name: Firebase Deploy
+              command: echo << pipeline.parameters.target_branch >>
       - cypress/install
           # requires:
           #   - build_and_deploy
