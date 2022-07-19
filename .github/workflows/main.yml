@@ -1,16 +1,16 @@
-name: Create-PR-Action
+# name: Create-PR-Action
 
-on:
-  pull_request:
-    types: [opened]
+# on:
+#   pull_request:
+#     types: [opened, synchronize]
 
-jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Trigger Automation Test In CircleCI
-        run: |
-          curl --location --request POST 'https://circleci.com/api/v2/project/github/TuyenHoangPG/cicd-frontend/pipeline' \
-                --header 'Content-Type: application/json' \
-                -u "1ea9cc1a016c3f6d452b22699929fd107dccd6a7" \
-                --data-raw '{"branch":"${{ github.head_ref }}", "parameters":{"pull_request":true, "target_branch": "${{ github.base_ref }}"}}'
+# jobs:
+#   check:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Trigger Automation Test In CircleCI
+#         run: |
+#           curl --location --request POST 'https://circleci.com/api/v2/project/github/TuyenHoangPG/cicd-frontend/pipeline' \
+#                 --header 'Content-Type: application/json' \
+#                 -u "1ea9cc1a016c3f6d452b22699929fd107dccd6a7" \
+#                 --data-raw '{"branch":"${{ github.head_ref }}", "parameters":{"pull_request":true, "target_branch": "${{ github.base_ref }}"}}'
