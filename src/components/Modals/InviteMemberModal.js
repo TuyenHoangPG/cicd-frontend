@@ -1,8 +1,6 @@
-import React, { useContext, useEffect, useState, useMemo } from "react";
-import { Modal, Form, Input, Select, Spin } from "antd";
+import React, { useContext, useState, useMemo } from "react";
+import { Modal, Form, Select, Spin } from "antd";
 import { AppContext } from "../../context/AppProvider";
-import { addDocument } from "../../firebase/services";
-import { AuthContext } from "../../context/AuthProvider";
 import { debounce } from "lodash";
 import Avatar from "antd/lib/avatar/avatar";
 import firestore, { db } from "../../firebase/config";
@@ -22,7 +20,7 @@ function DebounceSelect({ fetchOptions, debounceTimeout = 300, ...props }) {
       });
     };
     return debounce(loadOptions, debounceTimeout);
-  }, [setOptions, setIsFetching, fetchOptions, debounceTimeout]);
+  }, [setOptions, setIsFetching, fetchOptions, debounceTimeout, props.currentMembers]);
 
   return (
     <Select
@@ -52,9 +50,7 @@ export default function InviteMemberModal() {
     selectedRoomId,
     selectedRoom,
   } = useContext(AppContext);
-  const {
-    user: { uid },
-  } = useContext(AuthContext);
+
   const [value, setValue] = useState(null);
   const [form] = Form.useForm();
   const handleOk = async () => {

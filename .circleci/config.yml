@@ -1,0 +1,73 @@
+version: 2.1
+orbs:
+    cypress: cypress-io/cypress@2.0.0
+executors:
+  chrome80-ff72:
+    docker:
+      - image: 'cypress/browsers:node13.6.0-chrome80-ff72'
+parameters:
+  pull_request:
+    type: boolean
+    default: false
+  target_branch:
+    type: string
+    default: ''
+jobs:
+    build_and_deploy:
+      docker:
+          - image: circleci/node:14
+      working_directory: ~/repo
+      environment:
+        TARGET_PROJECT: test-circle-ci-99504
+      steps:
+          - checkout
+          # Download and cache dependencies
+          # - restore_cache:
+          #       keys:
+          #           - v1-dependencies-{{ checksum "package.json" }}
+          #           - v1-dependencies-
+          # - run:
+          #       name: Install Dependencies
+          #       command: npm install
+          # - save_cache:
+          #       key: v1-npm-deps-{{ checksum "package-lock.json" }}
+          #       paths:
+          #           - ./node_modules
+          # - run:
+          #       name: Build
+          #       command: npm run build
+          # - run:
+          #       name: Choose Project
+          #       command: ./node_modules/.bin/firebase use $TARGET_PROJECT
+          # - run:
+          #       name: Firebase Deploy
+          #       command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only hosting
+          - run: 
+                name: Check target_branch
+                command: echo << pipeline.parameters.target_branch >>
+workflows:
+  run-automation-test:
+    when:
+      and:
+        - equal: [ build, << pipeline.parameters.target_branch >> ]
+        - equal: [ true, << pipeline.parameters.pull_request >> ]
+    jobs:
+      - build_and_deploy
+          # filters:
+          #   branches:
+          #     only:
+          #       - build
+      - cypress/install
+          # requires:
+          #   - build_and_deploy
+      - cypress/run:
+          requires:
+            - cypress/install
+          record: true # record results on Cypress Dashboard
+          parallel: true # split all specs across machines
+          parallelism: 1 # use 4 CircleCI machines to finish quickly
+          # filters:
+          #   branches:
+          #     only:
+          #       - build
+
