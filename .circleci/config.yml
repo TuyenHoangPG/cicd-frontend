@@ -11,7 +11,7 @@ parameters:
     default: false
   target_branch:
     type: string
-    default: 'build'
+    default: ''
 jobs:
     build_and_deploy:
       docker:
@@ -22,35 +22,37 @@ jobs:
       steps:
           - checkout
           # Download and cache dependencies
-          - restore_cache:
-                keys:
-                    - v1-dependencies-{{ checksum "package.json" }}
-                    - v1-dependencies-
-          - run:
-                name: Install Dependencies
-                command: npm install
-          - save_cache:
-                key: v1-npm-deps-{{ checksum "package-lock.json" }}
-                paths:
-                    - ./node_modules
-          - run:
-                name: Build
-                command: npm run build
-          - run:
-                name: Choose Project
-                command: ./node_modules/.bin/firebase use $TARGET_PROJECT
-          - run:
-                name: Firebase Deploy
-                command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only hosting
+          # - restore_cache:
+          #       keys:
+          #           - v1-dependencies-{{ checksum "package.json" }}
+          #           - v1-dependencies-
+          # - run:
+          #       name: Install Dependencies
+          #       command: npm install
+          # - save_cache:
+          #       key: v1-npm-deps-{{ checksum "package-lock.json" }}
+          #       paths:
+          #           - ./node_modules
+          # - run:
+          #       name: Build
+          #       command: npm run build
+          # - run:
+          #       name: Choose Project
+          #       command: ./node_modules/.bin/firebase use $TARGET_PROJECT
+          # - run:
+          #       name: Firebase Deploy
+          #       command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only hosting
+          - run: 
+                name: Check target_branch
+                command: echo << pipeline.parameters.target_branch >>
 workflows:
   run-automation-test:
     when:
-      condition:
-        and:
-          - equal: [ build, << pipeline.parameters.target_branch >> ]
-          - equal: [ true, << pipeline.parameters.pull_request >> ]
+      and:
+        - equal: [ build, << pipeline.parameters.target_branch >> ]
+        - equal: [ true, << pipeline.parameters.pull_request >> ]
     jobs:
-      # - build_and_deploy
+      - build_and_deploy
           # filters:
           #   branches:
           #     only:
